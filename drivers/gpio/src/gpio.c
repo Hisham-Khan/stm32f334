@@ -1,8 +1,6 @@
 #include "stm32f334.h"
 #include "gpio.h"
 
-#define GPIO_PORT_MASK      0x11U
-
 // Get GPIO base address for a port
 static volatile uint8 *get_gpio_base(gpio_port_e port);
 
@@ -10,7 +8,7 @@ static volatile uint8 *get_gpio_base(gpio_port_e port);
 static boolean gpio_initialized[NUM_GPIO_PORTS] = {FALSE, FALSE, FALSE, FALSE, FALSE};
 
 // Initialize GPIO pin
-void gpio_init(gpio_port_e port, uint8 pin, gpio_mode_e mode, gpio_cfg_e cnf, gpio_pull_e pull)
+void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode, gpio_pull_e pull)
 {
     // Get GPIO base address
     volatile uint8 *base = get_gpio_base(port);
@@ -19,31 +17,34 @@ void gpio_init(gpio_port_e port, uint8 pin, gpio_mode_e mode, gpio_cfg_e cnf, gp
 }
 
 // Set GPIO pin (output high)
-void gpio_set(gpio_port_e port, uint8 pin)
+uint8 gpio_set(gpio_port_e port, gpio_pin_t pin)
 {
-    if(gpio_initialized[port] == FALSE) return;
+    if(gpio_initialized[port] == FALSE) return 1;
     volatile uint8 *base = get_gpio_base(port);
-    if (base == (volatile uint8 *)1) return; // Invalid port
+    if (base == (volatile uint8 *)1) return 1; // Invalid port
+    return 1;
 }
 
 // Clear GPIO pin (output low)
-void gpio_clear(gpio_port_e port, uint8 pin)
+uint8 gpio_clear(gpio_port_e port, gpio_pin_t pin)
 {
-    if(gpio_initialized[port] == FALSE) return;
+    if(gpio_initialized[port] == FALSE) return 1;
     volatile uint8 *base = get_gpio_base(port);
-    if (base == (volatile uint8 *)1) return; // Invalid port
+    if (base == (volatile uint8 *)1) return 1; // Invalid port
+    return 1;
 }
 
 // Toggle GPIO pin
-void gpio_toggle(gpio_port_e port, uint8 pin)
+uint8 gpio_toggle(gpio_port_e port, gpio_pin_t pin)
 {
-    if(gpio_initialized[port] == FALSE) return;
+    if(gpio_initialized[port] == FALSE) return 1;
     volatile uint8 *base = get_gpio_base(port);
-    if (base == (volatile uint8 *)1) return; // Invalid port
+    if (base == (volatile uint8 *)1) return 1; // Invalid port
+    return 1;
 }
 
 // Read GPIO pin (for input modes)
-uint8 gpio_read(gpio_port_e port, uint8 pin)
+uint8 gpio_read(gpio_port_e port, gpio_pin_t pin)
 {
     if(gpio_initialized[port] == FALSE) return 1;
     volatile uint8 *base = get_gpio_base(port);
