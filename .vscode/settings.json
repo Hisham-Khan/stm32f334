@@ -1,6 +1,0 @@
-{
-    "cmake.sourceDirectory": "/wsl.localhost/Ubuntu/home/mhishamu/baremetal/stm32/stm32f334/drivers",
-    "files.associations": {
-        "gpio.h": "c"
-    }
-}
