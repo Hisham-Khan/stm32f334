@@ -8,7 +8,7 @@ static volatile uint8 *get_gpio_base(gpio_port_e port);
 static boolean gpio_initialized[NUM_GPIO_PORTS] = {FALSE, FALSE, FALSE, FALSE, FALSE};
 
 // Initialize GPIO pin
-void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode, gpio_pull_e pull)
+void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode)
 {
     // Get GPIO base address
     volatile uint8 *base = get_gpio_base(port);

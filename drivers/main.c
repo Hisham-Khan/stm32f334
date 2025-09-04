@@ -7,7 +7,7 @@
 int main(void)
 {
     // Initialize GPIOA5
-    gpio_init(GPIO_PORTA, 5, GPIO_MODE_OUTPUT, GPIO_PULL_NONE);
+    gpio_init(GPIO_PORTA, 5, GPIO_MODE_OUTPUT);
 
     // Blink LED forever
     while (1)

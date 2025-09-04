@@ -25,12 +25,4 @@ typedef enum
     GPIO_MODE_ANALOG
 } gpio_mode_e;
 
-// Pull-up/pull-down enum
-typedef enum
-{
-    GPIO_PULL_NONE = 0U,
-    GPIO_PULL_UP,
-    GPIO_PULL_DOWN
-} gpio_pull_e;
-
 #endif // GPIO_TYPES_H

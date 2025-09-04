@@ -28,7 +28,7 @@
 #define GPIOx_BRR           0x28U
 
 // Initialize GPIO pin as output
-void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode, gpio_pull_e pull);
+void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode);
 
 // Set GPIO pin high (e.g., turn LED on)
 uint8 gpio_set(gpio_port_e port, gpio_pin_t pin);
