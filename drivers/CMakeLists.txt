@@ -16,6 +16,7 @@ set(SOURCES
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 include_directories(${CMAKE_SOURCE_DIR}/gpio/inc)
+include_directories(${CMAKE_SOURCE_DIR}/../essentials/types/inc)
 
 add_executable(stm32f334.elf ${SOURCES})
 
@@ -29,12 +30,12 @@ add_custom_command(
 add_custom_target(bin ALL DEPENDS stm32f334.bin)
 
 add_custom_target(flash
-    COMMAND openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "program stm32f334.bin 0x08000000 verify reset exit"
+    COMMAND openocd -f interface/stlink-v2.cfg -f target/stm32f3x.cfg -c "program stm32f334.bin 0x08000000 verify reset exit"
     DEPENDS stm32f334.bin
     COMMENT "Flashing binary to STM32"
 )
 
 add_custom_target(openocd
-    COMMAND openocd -f interface/stlink.cfg -f target/stm32f1x.cfg
+    COMMAND openocd -f interface/stlink-v2.cfg -f target/stm32f3x.cfg
     COMMENT "Starting OpenOCD"
 )
