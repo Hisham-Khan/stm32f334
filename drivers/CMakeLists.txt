@@ -12,11 +12,13 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/../essentials/startup/startup.c
     ${CMAKE_SOURCE_DIR}/main.c
     ${CMAKE_SOURCE_DIR}/gpio/src/gpio.c
+    ${CMAKE_SOURCE_DIR}/../essentials/helpers/src/helpers.c
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 include_directories(${CMAKE_SOURCE_DIR}/gpio/inc)
 include_directories(${CMAKE_SOURCE_DIR}/../essentials/types/inc)
+include_directories(${CMAKE_SOURCE_DIR}/../essentials/helpers/inc)
 
 add_executable(stm32f334.elf ${SOURCES})
 

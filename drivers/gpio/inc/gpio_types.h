@@ -3,10 +3,6 @@
 
 #include "std_types.h"
 
-#define GPIOA_RESET 0xA8000000U
-#define GPIOB_RESET 0x00000280U
-#define GPIOx_RESET 0x00000000U
-
 typedef struct
 {
     volatile uint32 MODER;    // GPIO port mode register

@@ -2,7 +2,7 @@
 #define STD_TYPES_H
 
 /** 
-* @brief The standard AUTOSAR type boolean shall be implemented on basis of an eight bits long 
+* @brief The standard type boolean shall be implemented on basis of an eight bits long 
 *        unsigned integer.
 * @implements boolean_type
 */
@@ -117,5 +117,8 @@ typedef float float32;
 * @implements float64_type
 */
 typedef double float64;
+
+#define TRUE        1U
+#define FALSE       0U
 
 #endif // STD_TYPES_H
