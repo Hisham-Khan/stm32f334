@@ -54,11 +54,18 @@ void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode)
 uint8 gpio_set(gpio_port_e port, gpio_pin_t pin)
 {
     if(gpio_initialized[port] == FALSE) return 1;
+    if(pin > 15) return 1; // Invalid pin
+    
     volatile uint32 *base = get_gpio_base(port);
     if (base == (volatile uint32 *)0xFFFFFFFF)
     {
         return 1; // Invalid port
     }
+    
+    // Use BSRR register for atomic set operation (offset 0x18)
+    volatile uint32 *bsrr = base + (GPIOx_BSRR / 4);
+    *bsrr = (1 << pin); // Set pin (lower 16 bits)
+    
     return 0;
 }
 
@@ -66,35 +73,58 @@ uint8 gpio_set(gpio_port_e port, gpio_pin_t pin)
 uint8 gpio_clear(gpio_port_e port, gpio_pin_t pin)
 {
     if(gpio_initialized[port] == FALSE) return 1;
+    if(pin > 15) return 1; // Invalid pin
+    
     volatile uint32 *base = get_gpio_base(port);
     if (base == (volatile uint32 *)0xFFFFFFFF)
     {
         return 1; // Invalid port
     }
-    return 0;
-}
-
-// Toggle GPIO pin
-uint8 gpio_toggle(gpio_port_e port, gpio_pin_t pin)
-{
-    if(gpio_initialized[port] == FALSE) return 1;
-    volatile uint32 *base = get_gpio_base(port);
-    if (base == (volatile uint32 *)0xFFFFFFFF)
-    {
-        return 1; // Invalid port
-    }
+    
+    // Use BSRR register for atomic clear operation (offset 0x18)
+    volatile uint32 *bsrr = base + (GPIOx_BSRR / 4);
+    *bsrr = (1 << (pin + 16)); // Reset pin (upper 16 bits)
+    
     return 0;
 }
 
 // Read GPIO pin (for input modes)
 uint8 gpio_read(gpio_port_e port, gpio_pin_t pin)
 {
+    if(gpio_initialized[port] == FALSE) return 0xFF; // Error value
+    if(pin > 15) return 0xFF; // Invalid pin
+    
+    volatile uint32 *base = get_gpio_base(port);
+    if (base == (volatile uint32 *)0xFFFFFFFF)
+    {
+        return 0xFF; // Invalid port
+    }
+    
+    // Access IDR register (offset 0x10)
+    volatile uint32 *idr = base + (GPIOx_IDR / 4);
+    
+    // Read the pin state
+    return (*idr & (1 << pin)) ? 1 : 0;
+}
+
+// Toggle GPIO pin
+uint8 gpio_toggle(gpio_port_e port, gpio_pin_t pin)
+{
     if(gpio_initialized[port] == FALSE) return 1;
+    if(pin > 15) return 1; // Invalid pin
+    
     volatile uint32 *base = get_gpio_base(port);
     if (base == (volatile uint32 *)0xFFFFFFFF)
     {
         return 1; // Invalid port
     }
+    
+    // Access ODR register (offset 0x14)
+    volatile uint32 *odr = base + (GPIOx_ODR / 4);
+    
+    // Toggle the pin
+    *odr ^= (1 << pin);
+    
     return 0;
 }
 
