@@ -6,6 +6,19 @@
 
 int main(void)
 {
+    // Enable HSI oscillator
+    RCC_CR |= RCC_CR_HSION;
+    
+    // Wait for HSI to be ready
+    while (!(RCC_CR & RCC_CR_HSIRDY))
+    {
+        // Wait for HSI ready flag
+    }
+
+    // Select HSI as system clock (FIXED - use correct bits)
+    RCC_CFGR &= ~(0x3U << 0);        // Clear SW[1:0] bits (bits 0-1, not using HSI_CLEAR)
+    RCC_CFGR |= RCC_SYSCLK_HSI;      // Set HSI as system clock source
+
     // Initialize GPIOA5
     gpio_init(GPIO_PORTA, 5, GPIO_MODE_OUTPUT);
 

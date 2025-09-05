@@ -3,9 +3,6 @@
 
 #include "gpio_types.h"
 
-// AHB1 peripheral clock enable
-#define RCC_AHB1ENR         *(volatile uint8 *)(AHB1_RCC_BASE + 0x14)
-
 // Number of GPIO ports
 #define NUM_GPIO_PORTS      0x5U
 
@@ -26,6 +23,13 @@
 #define GPIOx_AFR           0x20U
 #define GPIOx_AFH           0x24U
 #define GPIOx_BRR           0x28U
+
+// RCC AHBENR GPIO enable bits
+#define RCC_AHBENR_GPIOAEN_BIT      17U
+#define RCC_AHBENR_GPIOBEN_BIT      18U
+#define RCC_AHBENR_GPIOCEN_BIT      19U
+#define RCC_AHBENR_GPIODEN_BIT      20U
+#define RCC_AHBENR_GPIOFEN_BIT      22U
 
 // Initialize GPIO pin as output
 void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode);
