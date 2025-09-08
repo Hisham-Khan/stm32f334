@@ -9,7 +9,6 @@
 #define AHB1_BASE           0x40020000U // AHB1 peripheral base address
 #define AHB2_BASE           0x48000000U // AHB2 peripheral base address
 #define AHB3_BASE           0x50000000U // AHB3 peripheral base address
-#define FLASH_BASE          0x40000000U // Flash memory interface base address
 
 // APB1 peripherals
 #define APB1_TIMER2_BASE    (APB1_BASE + 0x0000U)   // Timer 2 base address
@@ -69,16 +68,16 @@
 #define AHB3_ADC_BASE       (AHB3_BASE + 0x0000U)   // Analog-to-Digital Converter base address
 
 // Flash Memory interface register
-#define FLASH_ACR           (FLASH_BASE + 0x00U)    // Flash access control register
-#define FLASH_KEYR          (FLASH_BASE + 0x04U)    // Flash key register
-#define FLASH_OPTKEYR       (FLASH_BASE + 0x08U)    // Flash option key register
-#define FLASH_SR            (FLASH_BASE + 0x0CU)    // Flash status register
-#define FLASH_CR            (FLASH_BASE + 0x10U)    // Flash control register
-#define FLASH_AR            (FLASH_BASE + 0x14U)    // Flash address register
-#define FLASH_OBR           (FLASH_BASE + 0x1CU)    // Flash option byte register
-#define FLASH_WRPR          (FLASH_BASE + 0x20U)    // Flash write protection register
+#define FLASH_ACR           (AHB1_FLASH_BASE + 0x00U)    // Flash access control register
+#define FLASH_KEYR          (AHB1_FLASH_BASE + 0x04U)    // Flash key register
+#define FLASH_OPTKEYR       (AHB1_FLASH_BASE + 0x08U)    // Flash option key register
+#define FLASH_SR            (AHB1_FLASH_BASE + 0x0CU)    // Flash status register
+#define FLASH_CR            (AHB1_FLASH_BASE + 0x10U)    // Flash control register
+#define FLASH_AR            (AHB1_FLASH_BASE + 0x14U)    // Flash address register
+#define FLASH_OBR           (AHB1_FLASH_BASE + 0x1CU)    // Flash option byte register
+#define FLASH_WRPR          (AHB1_FLASH_BASE + 0x20U)    // Flash write protection register
 
 // System clock frequency (default)
-#define SYSTEM_CLOCK        72000000U   // 72 MHz
+#define SYSTEM_CLOCK        8000000U    // 8 MHz if HSI is used
 
 #endif // STM32F334_H

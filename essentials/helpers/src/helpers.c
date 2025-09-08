@@ -1,10 +1,10 @@
 #include "helpers.h"
 
 // Simple delay
-void delay_ms(uint16 ms)
+void delay_ms(uint32 ms)
 {
-    volatile uint16 i;
-    for (i = 0; i < ms * 10000; i++)
+    volatile uint32 i;
+    for (i = 0; i < ms * 1000; i++)
     {
         
     }

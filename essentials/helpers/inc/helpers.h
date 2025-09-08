@@ -4,6 +4,6 @@
 #include "std_types.h"
 
 // Simple delay
-void delay_ms(uint16 ms);
+void delay_ms(uint32 ms);
 
 #endif // HELPERS_H
