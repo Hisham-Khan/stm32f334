@@ -2,6 +2,10 @@
 #include "gpio.h"
 #include "helpers.h"
 
+// RCC_CR bit definitions
+#define RCC_CR_HSION        (0x1U << 0U)    // HSI oscillator enable
+#define RCC_CR_HSIRDY       (0x1U << 1U)    // HSI oscillator ready flag
+
 #define ONBOARD_LED_PIN             5U
 
 #define USER_BUTTON_PIN             13U
@@ -15,17 +19,17 @@ int main(void)
     volatile uint8 last_button_status = BUTTON_UNPRESSED;
     volatile uint8 button_count = 0U;
     // Enable HSI oscillator
-    RCC_CR |= RCC_CR_HSION;
+    RCC->CR |= RCC_CR_HSION;
     
     // Wait for HSI to be ready
-    while (!(RCC_CR & RCC_CR_HSIRDY))
+    while (!(RCC->CR & RCC_CR_HSIRDY))
     {
         // Wait for HSI ready flag
     }
 
     // Select HSI as system clock (FIXED - use correct bits)
-    RCC_CFGR &= ~(0x3U << 0U);  // Clear SW[1:0] bits (bits 0-1, not using HSI_CLEAR)
-    RCC_CFGR |= RCC_SYSCLK_HSI; // Set HSI as system clock source
+    RCC->CFGR &= ~(0x3U << 0U);  // Clear SW[1:0] bits (bits 0-1, not using HSI_CLEAR)
+    RCC->CFGR |= RCC_SYSCLK_HSI; // Set HSI as system clock source
 
     // Initialize GPIOA5 as output for onboard LED
     gpio_init(GPIO_PORTA, ONBOARD_LED_PIN, GPIO_MODE_OUTPUT);

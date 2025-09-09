@@ -1,4 +1,5 @@
 #include "std_types.h"
+#include "stm32f334.h"
 
 typedef void (*handler_t)(void);
 
@@ -38,7 +39,7 @@ void reset_handler(void)
     }
 
     // Point VTOR to our vector table
-    (*(volatile uint32 *)0xE000ED08U) = (uint32)&vectors[0];
+    SCB->VTOR = (uint32)&vectors[0];
 
     main();
     while (1)
