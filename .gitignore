@@ -1,3 +1,4 @@
+drivers/build/
 drivers/build/cmake_install.cmake
 drivers/build/CMakeCache.txt
 drivers/build/Makefile
@@ -46,3 +47,5 @@ drivers/build/CMakeFiles/stm32f334.elf.dir/main.c.o
 drivers/build/CMakeFiles/stm32f334.elf.dir/progress.make
 drivers/build/CMakeFiles/stm32f334.elf.dir/gpio/src/gpio.c.o
 drivers/build/CMakeFiles/stm32f334.elf.dir/home/mhishamu/baremetal/stm32/stm32f334/essentials/startup/startup.c.o
+drivers/build/CMakeFiles/stm32f334.elf.dir/home/mhishamu/baremetal/stm32/stm32f334/essentials/helpers/delay/src/delay.c.o
+drivers/build/CMakeFiles/stm32f334.elf.dir/home/mhishamu/baremetal/stm32/stm32f334/essentials/helpers/systick/src/systick.c.o
