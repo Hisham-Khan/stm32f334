@@ -110,7 +110,6 @@ typedef struct
 // Peripheral Base Pointers
 #define RCC                 ((rcc_reg_t  *)AHB1_RCC_BASE)
 #define FLASH               ((flash_reg_t*)AHB1_FLASH_BASE)
-#define SCB                 ((scb_reg_t  *)SCB_BASE)
 
 // System clock frequency (default)
 #define SYSTEM_CLOCK        8000000U // 8 MHz if HSI is used

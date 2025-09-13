@@ -18,11 +18,11 @@
 #define RCC_AHBENR_GPIODEN_BIT      20U
 #define RCC_AHBENR_GPIOFEN_BIT      22U
 
-#define GPIOA   ((gpio_reg_t *)AHB2_GPIOA_BASE)
-#define GPIOB   ((gpio_reg_t *)AHB2_GPIOB_BASE)
-#define GPIOC   ((gpio_reg_t *)AHB2_GPIOC_BASE)
-#define GPIOD   ((gpio_reg_t *)AHB2_GPIOD_BASE)
-#define GPIOF   ((gpio_reg_t *)AHB2_GPIOF_BASE)
+#define GPIOA                       ((gpio_reg_t *)AHB2_GPIOA_BASE)
+#define GPIOB                       ((gpio_reg_t *)AHB2_GPIOB_BASE)
+#define GPIOC                       ((gpio_reg_t *)AHB2_GPIOC_BASE)
+#define GPIOD                       ((gpio_reg_t *)AHB2_GPIOD_BASE)
+#define GPIOF                       ((gpio_reg_t *)AHB2_GPIOF_BASE)
 
 // Initialize GPIO pin as output
 void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode);

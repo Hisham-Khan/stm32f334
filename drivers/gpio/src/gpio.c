@@ -1,5 +1,5 @@
-#include "stm32f334.h"
 #include "gpio.h"
+#include "stm32f334.h"
 
 // Map enum -> typed GPIO pointer
 static gpio_reg_t *get_gpio(gpio_port_e port)
@@ -42,7 +42,7 @@ void gpio_init(gpio_port_e port, gpio_pin_t pin, gpio_mode_e mode)
 
     // Configure MODER
     gpio->MODER &= ~(0x3U << (pin * 2U));
-    gpio->MODER |=  ((uint32)mode << (pin * 2U));
+    gpio->MODER |= ((uint32)mode << (pin * 2U));
 
     gpio_initialized[port] = TRUE;
 }
@@ -73,11 +73,11 @@ uint8 gpio_clear(gpio_port_e port, gpio_pin_t pin)
 
 uint8 gpio_read(gpio_port_e port, gpio_pin_t pin)
 {
-    if (port >= NUM_GPIO_PORTS || pin > 15U) return 1U;
-    if (!gpio_initialized[port]) return 1U;
+    if (port >= NUM_GPIO_PORTS || pin > 15U) return 0xFFU;
+    if (!gpio_initialized[port]) return 0xFFU;
 
     gpio_reg_t *gpio = get_gpio(port);
-    if (!gpio) return 1U;
+    if (!gpio) return 0xFFU;
 
     return ((gpio->IDR & (1U << pin)) ? 1U : 0U);
 }

@@ -1,6 +1,7 @@
 #include "stm32f334.h"
 #include "gpio.h"
-#include "helpers.h"
+#include "delay.h"
+#include "systick.h"
 
 // RCC_CR bit definitions
 #define RCC_CR_HSION        (0x1U << 0U)    // HSI oscillator enable
@@ -18,6 +19,8 @@ int main(void)
     volatile uint8 button_status = BUTTON_UNPRESSED;
     volatile uint8 last_button_status = BUTTON_UNPRESSED;
     volatile uint8 button_count = 0U;
+    uint32 last_toggle_ms = 0U; // for non-blocking blink
+
     // Enable HSI oscillator
     RCC->CR |= RCC_CR_HSION;
     
@@ -30,6 +33,7 @@ int main(void)
     // Select HSI as system clock (FIXED - use correct bits)
     RCC->CFGR &= ~(0x3U << 0U);  // Clear SW[1:0] bits (bits 0-1, not using HSI_CLEAR)
     RCC->CFGR |= RCC_SYSCLK_HSI; // Set HSI as system clock source
+    systick_init(SYSTEM_CLOCK);
 
     // Initialize GPIOA5 as output for onboard LED
     gpio_init(GPIO_PORTA, ONBOARD_LED_PIN, GPIO_MODE_OUTPUT);
@@ -64,13 +68,24 @@ int main(void)
                 (void)gpio_set(GPIO_PORTA, ONBOARD_LED_PIN);    // LED on
                 break;
             case 2U:
-                (void)gpio_toggle(GPIO_PORTA, ONBOARD_LED_PIN); // Blink
-                delay_ms(500U);
+                // Blink handled below
                 break;
             default:
                 button_count = 0U;
                 break;
         }
+
+        if (button_count == 2U)
+        {
+            uint32 now = millis();
+            if ((now - last_toggle_ms) >= 500U)
+            {
+                (void)gpio_toggle(GPIO_PORTA, ONBOARD_LED_PIN);
+                last_toggle_ms = now;
+            }
+        }
+        
+        delay_ms(1U);
     }
     return 0; // Never reached
 }

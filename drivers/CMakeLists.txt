@@ -12,13 +12,15 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/../essentials/startup/startup.c
     ${CMAKE_SOURCE_DIR}/main.c
     ${CMAKE_SOURCE_DIR}/gpio/src/gpio.c
-    ${CMAKE_SOURCE_DIR}/../essentials/helpers/src/helpers.c
+    ${CMAKE_SOURCE_DIR}/../essentials/helpers/delay/src/delay.c
+    ${CMAKE_SOURCE_DIR}/../essentials/helpers/systick/src/systick.c
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 include_directories(${CMAKE_SOURCE_DIR}/gpio/inc)
 include_directories(${CMAKE_SOURCE_DIR}/../essentials/types/inc)
-include_directories(${CMAKE_SOURCE_DIR}/../essentials/helpers/inc)
+include_directories(${CMAKE_SOURCE_DIR}/../essentials/helpers/delay/inc)
+include_directories(${CMAKE_SOURCE_DIR}/../essentials/helpers/systick/inc)
 
 add_executable(stm32f334.elf ${SOURCES})
 

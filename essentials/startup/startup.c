@@ -1,7 +1,13 @@
 #include "std_types.h"
 #include "stm32f334.h"
 
+#define SCB                 ((scb_reg_t  *)SCB_BASE)
+
 typedef void (*handler_t)(void);
+
+void nmi_handler(void)       __attribute__((weak, alias("default_handler")));
+void hardfault_handler(void) __attribute__((weak, alias("default_handler")));
+void systick_handler(void)   __attribute__((weak, alias("default_handler")));
 
 extern int main(void);
 
@@ -21,9 +27,6 @@ static void default_handler(void)
 
     }
 }
-
-void nmi_handler(void)       __attribute__((weak, alias("default_handler")));
-void hardfault_handler(void) __attribute__((weak, alias("default_handler")));
 
 void reset_handler(void)
 {
@@ -54,5 +57,6 @@ const handler_t vectors[] =
     (handler_t)(&_stacktop), // Initial MSP
     reset_handler,           // Reset
     nmi_handler,             // NMI
-    hardfault_handler        // HardFault
+    hardfault_handler,       // HardFault
+    [15] = systick_handler   // 15: SysTick
 };
